@@ -8,4 +8,8 @@ body {
     -webkit-line-clamp: 1;
 
   }
+  .category-bar {
+  -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }

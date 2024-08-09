@@ -10,9 +10,12 @@ export default {
     extend: {
       borderRadius: {
         'custom': '10px',
+        '50': '70px',
       },
-
-    },
+      backgroundColor: {
+        'custom': '#E0F1F0',
+      },
+      }
   },
   plugins: [
       typography,
