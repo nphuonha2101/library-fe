@@ -20,6 +20,33 @@ export const Register = () => {
                                placeholder="name@company.com"/>
                     </div>
                     <div>
+                        <label htmlFor="email"
+                               className="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Họ và tên
+                        </label>
+                        <input type="text" name="email" id="email"
+                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               placeholder=""/>
+                    </div>
+                    <div>
+                        <label htmlFor="email"
+                               className="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">Địa
+                            chỉ
+                        </label>
+                        <input type="text" name="email" id="email"
+                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               placeholder=""/>
+                    </div>
+                    <div>
+                        <label htmlFor="email"
+                               className="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ngày sinh
+                        </label>
+                        <input type="date" name="email" id="email"
+                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               placeholder=""/>
+                    </div>
+
+                    <div>
                         <label htmlFor="password"
                                className="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mật
                             khẩu</label>
@@ -43,7 +70,7 @@ export const Register = () => {
                             />
                         </div>
                         <div className="ml-3 text-sm">
-                            <label htmlFor="terms" className="font-light text-gray-500 dark:text-gray-300"> Tôi chap
+                            <label htmlFor="terms" className="font-light text-gray-500 dark:text-gray-300"> Tôi chấp
                                 nhận
                                 các <a className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                                        href="#"> điều khoản và điều kiện</a></label>
