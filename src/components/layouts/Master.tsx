@@ -1,6 +1,8 @@
 import { Footer } from "../paritials/Footer/Footer"
 import { Header } from "../paritials/Header/Header"
 
+import {GoTopButton} from "../vendors/Buttons/GoTopButton.tsx";
+
 export const Master = ({ children }: { children?: React.ReactNode }) => {
     return (
         <>
@@ -8,6 +10,7 @@ export const Master = ({ children }: { children?: React.ReactNode }) => {
             <section className="container mx-auto w-full mt-6">
                 {children}
             </section>
+            <GoTopButton/>
             <Footer />
         </>
     );
