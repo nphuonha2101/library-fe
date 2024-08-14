@@ -2,7 +2,8 @@ import {Link} from "react-router-dom";
 import {CgMathPlus} from "react-icons/cg";
 import './Category.scss';
 import {BsCartCheck} from "react-icons/bs";
-export const BookItem = ({cover_image, title, author, genre}: {
+export const BookItem = ({id, cover_image, title, author, genre}: {
+    id: string;
     cover_image: string;
     title: string;
     author: string;
@@ -18,12 +19,12 @@ export const BookItem = ({cover_image, title, author, genre}: {
                         className="z-10 w-7 h-7 bg-blue-950 rounded-custom flex items-center justify-center text-white group-hover:bg-blue-950">
                         <CgMathPlus className="text-xl"/>
                     </div>
-                    <Link
+                    <Link to={`/book/${id}`}
                         className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white bg-orange-600 whitespace-nowrap text-xs p-1.5 w-28 hover:text-white -ml-4 rounded-custom">Xem
                         chi tiết</Link>
                 </div>
                 <ul className="m-0 p-0 list-none absolute right-0 top-0">
-                    <li><Link
+                    <li><Link to={"/"}
                         className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-orange-600 right-0 top-0 w-7 h-7 text-xl hover:text-white rounded-custom flex items-center justify-center text-white">
                         <BsCartCheck/>
                     </Link>
@@ -31,7 +32,7 @@ export const BookItem = ({cover_image, title, author, genre}: {
                 </ul>
             </div>
             <div className="text-center p-3">
-                <h4><Link className="text-black hover:text-orange-600 title-cart">{title}</Link></h4>
+                <h4><Link to={"/"} className="text-black hover:text-orange-600 title-cart">{title}</Link></h4>
                 <div>
                     <h6 className="text-sky-500">{author}</h6>
                 </div>

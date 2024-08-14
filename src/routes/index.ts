@@ -2,6 +2,7 @@ import { IRoute } from '../interfaces/IRoute';
 import { Home } from '../components/pages/Home/Home';
 import { Master } from '../components/layouts/Master';
 import {CategoryList} from "../components/pages/Category/CategoryList.tsx";
+import {BookDetail} from "../components/pages/Category/BookDetail.tsx";
 
 export const routes: IRoute[] = [
     {
@@ -14,4 +15,9 @@ export const routes: IRoute[] = [
         Component:CategoryList,
         Layout: Master
     },
+    {
+        path: '/book/:id',
+        Component: BookDetail,
+        Layout: Master
+    }
 ]
