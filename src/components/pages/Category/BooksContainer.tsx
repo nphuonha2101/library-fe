@@ -32,6 +32,7 @@ export const BooksContainer = () => {
                 {books && books.map((book, index) => (
                     <BookItem
                         key={index}
+                        id={book.id}
                         cover_image={book.cover_image}
                         title={book.title}
                         author={book.author}
