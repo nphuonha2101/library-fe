@@ -1,0 +1,15 @@
+body {
+  .title-cart {
+    -webkit-box-orient: vertical;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+
+  }
+  .category-bar {
+  -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
