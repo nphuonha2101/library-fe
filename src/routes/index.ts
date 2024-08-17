@@ -4,6 +4,7 @@ import { Master } from '../components/layouts/Master';
 import {CategoryList} from "../components/pages/Category/CategoryList.tsx";
 import {BookDetail} from "../components/pages/Category/BookDetail.tsx";
 import {Login} from "../components/pages/Form/Login.tsx";
+import {Admin} from "../components/layouts/Admin.tsx";
 
 
 export const routes: IRoute[] = [
@@ -21,9 +22,15 @@ export const routes: IRoute[] = [
         path: '/book/:id',
         Component: BookDetail,
         Layout: Master
-    }
+    },
+    {
         path: '/login',
         Component:Login,
         Layout: Master
     },
+    {
+        path: '/admin',
+        Component: Home,
+        Layout: Admin
+    }
 ]
