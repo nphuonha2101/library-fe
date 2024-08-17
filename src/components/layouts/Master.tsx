@@ -7,7 +7,7 @@ export const Master = ({ children }: { children?: React.ReactNode }) => {
     return (
         <>
             <Header />
-            <section className="container mx-auto w-full mt-6">
+            <section className="container mx-auto w-full mt-12">
                 {children}
             </section>
             <GoTopButton/>
