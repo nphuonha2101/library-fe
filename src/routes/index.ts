@@ -29,7 +29,7 @@ export const routes: IRoute[] = [
         Layout: Master
     },
     {
-        path: '/register',
+        path: '/cart',
         Component: Cart,
         Layout: Master
     }
