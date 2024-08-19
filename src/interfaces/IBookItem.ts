@@ -1,7 +1,14 @@
+import { IAuthor } from "./IAuthor";
+import { ICategory } from "./ICategory";
+
 export interface IBookItem {
-    id: string;
-    cover_image: string;
+    id?: number;
     title: string;
-    author: string;
-    genre: string;
+    isbn: string;
+    description: string;
+    importedDate: string;
+    quantity: number;
+    bookImage: string;
+    authors: IAuthor[];
+    categories: ICategory[];
 }
