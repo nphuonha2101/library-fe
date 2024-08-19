@@ -1,24 +1,23 @@
-import {HiOutlineBookOpen} from "react-icons/hi";
-import {AiOutlineBook} from "react-icons/ai";
-import {FaBook, FaBookDead} from "react-icons/fa";
+
 import './Category.scss';
 import {CategoryBarButton} from "./CategoryBarButton.tsx";
-import {useState} from "react";
-import {CategoryList} from "./CategoryList.tsx";
+import {useEffect, useState} from "react";
 import {DiYii} from "react-icons/di";
 
+import {FaBookOpen} from "react-icons/fa";
+import {Link} from "react-router-dom";
+
 export const CategoryBar = () => {
-    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);4
-    
-    const categories = [
-        {icon: <HiOutlineBookOpen/>, label: 'Self Help'},
-        {icon: <AiOutlineBook/>, label: 'Tiểu thuyết'},
-        {icon: <AiOutlineBook/>, label: 'Trinh thám'},
-        {icon: <AiOutlineBook/>, label: 'Hài kịch'},
-        {icon: <FaBook/>, label: 'Truyện ngắn'},
-        {icon: <FaBook/>, label: 'Hoạt hình'},
-        {icon: <FaBookDead/>, label: 'Khoa học viễn tưởng'},
-    ];
+    const [categories, setCategories] = useState<[]>([]);
+
+
+    // fetch categories
+    useEffect(() => {
+        fetch("https://localhost:7259/api/v1/categories")
+            .then((response) => response.json())
+            .then((data) => setCategories(data));
+    }, []);
+
     return (
         <div>
             <div className="text-3xl font-bold mb-0 capitalize ">
@@ -34,15 +33,14 @@ export const CategoryBar = () => {
                         <div className="flex space-x-6 justify-center my-20">
                             {categories.map((category, index) => (
                                 <CategoryBarButton key={index}
-                                                   icon={category.icon}
-                                                   label={category.label}
-                                                   onClick={() => setSelectedCategory(category.label)}
+                                                   label={category.name}
+                                                   icon=<FaBookOpen/>
+                                                   onClick={() => <Link to={"/books/category/" + category.id} }
                                 />
                             ))}
                         </div>
                     </div>
                 </div>
-                {selectedCategory && <CategoryList category={selectedCategory}/>}
             </div>
         </div>
     )

@@ -32,5 +32,10 @@ export const routes: IRoute[] = [
         path: '/admin',
         Component: Home,
         Layout: Admin
+    },
+    {
+        path: '/books/category/:id',
+        Component: CategoryList,
+        Layout: Master
     }
 ]
