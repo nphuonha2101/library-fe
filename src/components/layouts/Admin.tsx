@@ -1,4 +1,3 @@
-
 import {BsCartFill} from "react-icons/bs";
 import {BiSolidBookAlt, BiSolidUser} from "react-icons/bi";
 import {DiAptana} from "react-icons/di";
@@ -109,69 +108,148 @@ export const Admin = () => {
                                                 <span className="sr-only">Close modal</span>
                                             </button>
                                         </div>
-                                        <form className="p-4 md:p-5">
-                                            <div className="grid gap-4 mb-4 grid-cols-2">
-                                                <div className="col-span-2">
-                                                    <label htmlFor="name"
-                                                           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                                        Tên sách
-                                                    </label>
-                                                    <input type="text" name="name" id="name"
-                                                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                           placeholder="Nhập tên sách"/>
+                                        <div
+                                            className="w-full md:w-3/4 mx-auto p-3 md:p-4 h-96 overflow-y-scroll bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+                                            <form className="w-full">
+                                                <div className="grid gap-2 mb-3 grid-cols-1 md:grid-cols-2">
+                                                    <div className="col-span-2">
+                                                        <label htmlFor="name"
+                                                               className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Tên sách
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            name="name"
+                                                            id="name"
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="Nhập tên sách"
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label htmlFor="price"
+                                                               className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Số lượng
+                                                        </label>
+                                                        <input
+                                                            type="number"
+                                                            name="price"
+                                                            id="price"
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="1"
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label htmlFor="isbn"
+                                                               className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            ISBN
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            name="isbn"
+                                                            id="isbn"
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="Nhập ISBN"
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label htmlFor="category"
+                                                               className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Thể loại
+                                                        </label>
+                                                        <select
+                                                            id="category"
+                                                            name="category"
+                                                            multiple
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        >
+                                                            <option value="PC">PC</option>
+                                                            <option value="GA">Gaming/Console</option>
+                                                            <option value="PH">Phones</option>
+                                                        </select>
+                                                    </div>
+                                                    <div>
+                                                        <label htmlFor="authors"
+                                                               className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Tác giả
+                                                        </label>
+                                                        <select
+                                                            id="authors"
+                                                            name="authors"
+                                                            multiple
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        >
+                                                            <option value="author1">Tác giả 1</option>
+                                                            <option value="author2">Tác giả 2</option>
+                                                            <option value="author3">Tác giả 3</option>
+                                                        </select>
+                                                    </div>
+                                                    <div className="col-span-2">
+                                                        <label htmlFor="description"
+                                                               className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Mô tả
+                                                        </label>
+                                                        <textarea
+                                                            id="description"
+                                                            className="block p-2 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                            placeholder="Nhập mô tả ở đây"
+                                                        ></textarea>
+                                                    </div>
+                                                    <div className="col-span-2">
+                                                        <label htmlFor="imageUpload"
+                                                               className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                                                            Tải ảnh lên
+                                                        </label>
+
+                                                        <div className="flex items-center justify-center w-full">
+                                                            <label htmlFor="dropzone-file"
+                                                                   className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                                                <div
+                                                                    className="flex flex-col items-center justify-center pt-5 pb-6">
+                                                                    <svg
+                                                                        className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+                                                                        aria-hidden="true"
+                                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                        viewBox="0 0 20 16">
+                                                                        <path stroke="currentColor"
+                                                                              stroke-linecap="round"
+                                                                              stroke-linejoin="round" stroke-width="2"
+                                                                              d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                                                                    </svg>
+                                                                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                                                        <span
+                                                                            className="font-semibold">Nhấn để tải lên </span> hoặc kéo và thả</p>
+                                                                    <p className="text-xs text-gray-500 dark:text-gray-400">SVG,
+                                                                        PNG, JPG or GIF (MAX. 800x400px)</p>
+                                                                </div>
+                                                                <input id="dropzone-file" type="file"
+                                                                       className="hidden"/>
+                                                            </label>
+                                                        </div>
+
+                                                    </div>
                                                 </div>
-                                                <div className="col-span-2 sm:col-span-1">
-                                                    <label htmlFor="price"
-                                                           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                                        Số lượng
-                                                    </label>
-                                                    <input type="number" name="price" id="price"
-                                                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                           placeholder="1"/>
-                                                </div>
-                                                <div className="col-span-2 sm:col-span-1">
-                                                    <label htmlFor="category"
-                                                           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                                        Thể loại
-                                                    </label>
-                                                    <select id="category"
-                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                                        <option>Chọn thể loại</option>
-                                                        <option value="PC">PC</option>
-                                                        <option value="GA">Gaming/Console</option>
-                                                        <option value="PH">Phones</option>
-                                                    </select>
-                                                </div>
-                                                <div className="col-span-2">
-                                                    <label htmlFor="description"
-                                                           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                                        Mô tả
-                                                    </label>
-                                                    <textarea id="description"
-                                                              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                              placeholder="Nhập mô tả ở đây"></textarea>
-                                                </div>
-                                                <div className="col-span-2">
-                                                    <label htmlFor="imageUpload"
-                                                           className="block mb-3 text-lg font-medium text-gray-900 dark:text-white">
-                                                        Tải ảnh lên
-                                                    </label>
-                                                    <input type="file" name="imageUpload" id="imageUpload"
-                                                           className="my-3 block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                                           accept="image/*"/>
-                                                </div>
-                                            </div>
-                                            <button type="submit"
-                                                    className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                <svg className="me-1 -ms-1 w-5 h-5" fill="currentColor"
-                                                     viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fillRule="evenodd"
-                                                          d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                                          clipRule="evenodd"></path>
-                                                </svg>
-                                                Thêm sách mới
-                                            </button>
-                                        </form>
+                                                <button
+                                                    type="submit"
+                                                    className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                                >
+                                                    <svg
+                                                        className="me-1 w-5 h-5"
+                                                        fill="currentColor"
+                                                        viewBox="0 0 20 20"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <path
+                                                            fillRule="evenodd"
+                                                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                            clipRule="evenodd"
+                                                        ></path>
+                                                    </svg>
+                                                    Thêm sách mới
+                                                </button>
+                                            </form>
+                                        </div>
+
+
                                     </div>
                                 </div>
                             </div>
