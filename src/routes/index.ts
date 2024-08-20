@@ -8,7 +8,7 @@ import { Login } from "../components/pages/Form/Login.tsx";
 import { Register } from '../components/pages/Form/Register.tsx';
 import { Cart } from '../components/pages/Cart/Cart.tsx';
 
-import {Admin} from "../components/layouts/Admin.tsx";
+import { Admin } from "../components/layouts/Admin.tsx";
 
 
 
@@ -40,7 +40,7 @@ export const routes: IRoute[] = [
         Component: Cart,
         Layout: Master
     },
-  {
+    {
         path: '/admin',
         Component: Home,
         Layout: Admin

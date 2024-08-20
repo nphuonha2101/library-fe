@@ -2,7 +2,7 @@ import { IAuthor } from "./IAuthor";
 import { ICategory } from "./ICategory";
 
 export interface IBookItem {
-    id?: number;
+    id: number;
     title: string;
     isbn: string;
     description: string;
