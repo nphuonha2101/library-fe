@@ -70,7 +70,6 @@ export const Reviews = ({ bookId }: { bookId: number }) => {
                         <span className="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
                         <a href="#" className="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">{numberOfReviews} đánh giá</a>
                     </div>
-
                 </div>
                 <div className="w-full p-3 max-h-svh overflow-y-auto">
                     {
