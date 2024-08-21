@@ -5,9 +5,8 @@ import { CategoryList } from "../components/pages/Category/CategoryList.tsx";
 import { BookDetail } from "../components/pages/BookDetail/BookDetail.tsx";
 import { Login } from "../components/pages/Form/Login.tsx";
 import { Cart } from '../components/pages/Cart/Cart.tsx';
-import { Admin } from "../components/layouts/Admin.tsx";
-
-
+import {Admin} from "../components/layouts/Admin.tsx";
+import {BookManagement} from "../components/pages/adminPages/BookManagement/BookManagement.tsx";
 
 export const routes: IRoute[] = [
     {
@@ -32,6 +31,10 @@ export const routes: IRoute[] = [
         Component: Login,
         Layout: Master
     },
+    {path: '/register',
+        Component: Register,
+        Layout: Master
+    },
     {
         path: '/cart',
         Component: Cart,
@@ -39,7 +42,17 @@ export const routes: IRoute[] = [
     },
     {
         path: '/admin',
-        Component: Home,
+        Component: BookManagement,
         Layout: Admin
+    },
+    {
+        path: '/admin/book',
+        Component: BookManagement,
+        Layout: Admin
+    },
+    {
+        path: '/books/category/:categoryId',
+        Component: CategoryList,
+        Layout: Master
     }
 ]
