@@ -29,6 +29,7 @@ export const BookDetail = () => {
     function incrementQuantity() {
         setQuantity(quantity + 1);
     }
+
     function decrementQuantity() {
         if (quantity === 0) {
             return;
