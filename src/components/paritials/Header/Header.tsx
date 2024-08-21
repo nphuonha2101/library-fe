@@ -3,7 +3,7 @@ import { SearchModal } from "./SearchModal";
 import { useState } from "react";
 
 export const Header = () => {
-    const [searchModalOpen, setSearchModalOpen] = useState(false);
+    const [searchModalOpen, setSearchModalOpen] = useState(true);
 
     const handleCloseSearchModal = (isOpen: boolean) => {
         setSearchModalOpen(isOpen);
@@ -11,6 +11,7 @@ export const Header = () => {
 
     const handleOpenSearchModal = () => {
         setSearchModalOpen(true);
+        console.log("Open search modal");
     }
 
     const isLogin = true;

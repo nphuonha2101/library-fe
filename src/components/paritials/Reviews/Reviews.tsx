@@ -85,7 +85,7 @@ export const Reviews = ({ bookId }: { bookId: number }) => {
                         <form id="reviewForm" onSubmit={submitReview}>
                             <div className="flex items-center gap-7 mt-2">
                                 <label className="block text-sm font-medium text-gray-700 dark:text-white" htmlFor="review-title">Tiêu đề đánh giá:</label>
-                                <input className="w-full p-2 mt-1 text-sm border border-gray-300 rounded-md dark:bg-gray-700 dark:text-white focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" type="text" name="review-title" id="review-title" placeholder="Nhập tiêu đề đánh giá" />
+                                <input className="w-full p-2 mt-1 text-sm border border-gray-300 rounded-md dark:bg-gray-700 dark:text-white focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" type="text" name="title" id="review-title" placeholder="Nhập tiêu đề đánh giá" />
                                 <select className="w-24 p-2 mt-1 text-sm border border-gray-300 rounded-md dark:bg-gray-700 dark:text-white focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" name="rating" id="rating">
                                     <option value="1">1 sao</option>
                                     <option value="2">2 sao</option>

@@ -1,4 +1,5 @@
 import { IBookReview } from "../../../interfaces/IBookReview";
+import { dateFormat } from "../../../utils/dateFormat";
 
 export const ReviewItem = ({ data }: { data: IBookReview }) => {
     return (
@@ -20,7 +21,7 @@ export const ReviewItem = ({ data }: { data: IBookReview }) => {
                     <div className="flex items-start justify-between mb-5">
                         <div className="pe-4">
                             <footer>
-                                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">Đã đánh giá vào lúc: {data.createdAt}</p>
+                                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">Đã đánh giá vào lúc: {dateFormat(data.createdAt)}</p>
                             </footer>
                             <h4 className="text-xl text-start w-fit font-bold text-gray-900 dark:text-white">{data.title ? data.title : "Không có tiêu đề"}</h4>
                         </div>

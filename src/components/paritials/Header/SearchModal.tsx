@@ -30,10 +30,15 @@ export const SearchModal = ({ isOpen, handleClose }: { isOpen: boolean; handleCl
 
 
     return (
-        <Modal show={isOpen} onClose={() => { handleClose(false) }}>
-            <Modal.Header>
+        <Modal
+            className="modal-overlay"
+            show={isOpen} onClose={() => { handleClose(false) }}>
+            <Modal.Header className="h-fit p-2 flex items-center">
+                <h1 className="text-lg">Tìm kiếm: {keyword}</h1>
+            </Modal.Header>
 
-                <form>
+            <Modal.Body>
+                <div className="w-full mb-3">
                     <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                     <div className="relative">
                         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -41,15 +46,13 @@ export const SearchModal = ({ isOpen, handleClose }: { isOpen: boolean; handleCl
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                             </svg>
                         </div>
-                        <input onChange={handleInputChange} type="search" id="search" className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required />
+                        <input onChange={handleInputChange} type="search" id="search" className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required />
                     </div>
-                </form>
-            </Modal.Header>
+                </div>
 
-            <Modal.Body>
                 <div className="w-full overflow-y-auto max-h-[400px]">
                     {searchResults ? searchResults.map((book, index) => (
-                        <Link key={index} to={`/book/${book.id}`} className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                        <Link key={index} to={`/book/${book.id}`} className="flex mb-2 flex-col w-full items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
                             <img className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src={book.bookImage} alt="Book Image" />
                             <div className="flex flex-col justify-between p-4 leading-normal">
                                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{book.title}</h5>
