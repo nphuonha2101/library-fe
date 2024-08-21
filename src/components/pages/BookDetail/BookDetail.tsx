@@ -1,12 +1,15 @@
-import {IBookItem} from "../../../interfaces/IBookItem.ts";
-import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import { IBookItem } from "../../../interfaces/IBookItem.ts";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { Reviews } from "../../paritials/Reviews/Reviews.tsx";
 
 
 export const BookDetail = () => {
-    const {id} = useParams<{ id: string }>();
+    const { id } = useParams<{ id: string }>();
     const [book, setBook] = useState<IBookItem | null>(null);
     const [quantity, setQuantity] = useState<number>(1);
+
+    const isLogin = true;
 
     useEffect(() => {
         // Replace with your actual fetch logic
@@ -37,21 +40,39 @@ export const BookDetail = () => {
 
     return (
         <div className="grid grid-cols-3 gap-4">
-            <div className="col-span-1 max-w-[460px] bg-white rounded-lg shadow-md p-4">
+            <div className="col-span-1 max-w-[460px] h-fit bg-white rounded-lg shadow-md p-4">
                 <div>
                     <img
                         src={book.bookImage}
                         alt={book.title} className="w-full rounded-lg"/>
+
                 </div>
                 <div className="mt-4">
-                    <button
-                        className="mr-5 items-center px-4 py-2 bg-white border border-blue-500 text-blue-500 rounded-lg transition duration-300 ease-in-out">
-                        Thêm vào giỏ hàng
-                    </button>
-                    <button
-                        className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out">
-                        Mượn ngay
-                    </button>
+                    {isLogin ? (
+                        <>
+                            <button
+                                className="mr-5 items-center px-4 py-2 bg-white border border-blue-500 text-blue-500 rounded-lg transition duration-300 ease-in-out">
+                                Thêm vào giỏ hàng
+                            </button>
+                            <button
+                                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out">
+                                Mượn ngay
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <button
+                                className="mr-5 items-center px-4 py-2 bg-white border border-blue-500 text-blue-500 rounded-lg transition duration-300 ease-in-out cursor-not-allowed" disabled>
+                                Vui lòng đăng nhập
+                            </button>
+                            <button
+                                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out cursor-not-allowed" disabled>
+                                Đăng nhập để mượn
+                            </button>
+                        </>
+                    )}
+
+
                 </div>
             </div>
             <div className="col-span-2 max-w-[720px]">
@@ -105,6 +126,8 @@ export const BookDetail = () => {
                     <h2 className="text-left font-bold text-2xl">Mô tả</h2>
                     <p className="mt-4 text-left">{book.description}</p>
                 </div>
+
+                <Reviews bookId={book.id} />
             </div>
         </div>
     );

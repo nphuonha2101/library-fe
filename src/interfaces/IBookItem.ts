@@ -13,4 +13,5 @@ export interface IBookItem extends IApiResult {
     authors: IAuthor[],
     categories: ICategory[],
 
+
 }
