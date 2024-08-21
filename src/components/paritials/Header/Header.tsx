@@ -3,10 +3,11 @@ import { SearchModal } from "./SearchModal";
 import { useState } from "react";
 
 export const Header = () => {
-    const [searchModalOpen, setSearchModalOpen] = useState(true);
+    const [searchModalOpen, setSearchModalOpen] = useState(false);
 
     const handleCloseSearchModal = (isOpen: boolean) => {
         setSearchModalOpen(isOpen);
+        console.log("Close search modal" + isOpen);
     }
 
     const handleOpenSearchModal = () => {
@@ -39,7 +40,7 @@ export const Header = () => {
                                     </svg>
                                     <span className="sr-only">Search icon</span>
                                 </div>
-                                <input disabled onClick={handleOpenSearchModal} type="text" id="search-navbar" className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Tìm kiếm ..." />
+                                <input onClick={handleOpenSearchModal} type="text" id="search-navbar" className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Tìm kiếm ..." />
                             </div>
 
                             {isLogin ? (
@@ -115,7 +116,7 @@ export const Header = () => {
                 </nav>
             </header >
 
-            <SearchModal isOpen={searchModalOpen} handleClose={() => { handleCloseSearchModal }} />
+            <SearchModal isOpen={searchModalOpen} handleClose={handleCloseSearchModal} />
         </>
     );
 };
