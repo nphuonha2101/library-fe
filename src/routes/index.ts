@@ -9,6 +9,7 @@ import { Register } from '../components/pages/Form/Register.tsx';
 import { Cart } from '../components/pages/Cart/Cart.tsx';
 
 import {Admin} from "../components/layouts/Admin.tsx";
+import {BookManagement} from "../components/pages/adminPages/BookManagement/BookManagement.tsx";
 
 
 
@@ -35,6 +36,10 @@ export const routes: IRoute[] = [
         Component: Login,
         Layout: Master
     },
+    {path: '/register',
+        Component: Register,
+        Layout: Master
+    },
     {
         path: '/cart',
         Component: Cart,
@@ -42,11 +47,16 @@ export const routes: IRoute[] = [
     },
   {
         path: '/admin',
-        Component: Home,
+        Component: BookManagement,
         Layout: Admin
     },
     {
-        path: '/books/category/:id',
+        path: '/admin/book',
+        Component: BookManagement,
+        Layout: Admin
+    },
+    {
+        path: '/books/category/:categoryId',
         Component: CategoryList,
         Layout: Master
     }
