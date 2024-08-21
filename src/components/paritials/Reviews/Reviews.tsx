@@ -39,8 +39,7 @@ export const Reviews = ({ bookId }: { bookId: number }) => {
             method: "POST",
             body: formData,
             headers: {
-                "X-CSRF-TOKEN": token,
-                "Content-Type": "form-data"
+                "X-CSRF-TOKEN": token
             },
             credentials: "include"
         })
@@ -53,8 +52,10 @@ export const Reviews = ({ bookId }: { bookId: number }) => {
             .then(data => {
                 setReviews([...reviews, data]);
                 form.reset();
-            });
+            })
+            .catch(error => console.error("There was a problem with your fetch operation:", error));
     };
+
 
 
 
