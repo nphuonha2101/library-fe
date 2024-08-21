@@ -15,7 +15,7 @@ export const BookManagement: React.FC = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [xsrftoken, setXsrfToken] = useState<string | null>(null);
 
-    const bô = async () => {
+    const fetchXsrfToken = async () => {
         try {
             const response = await fetch("https://localhost:7259/auth/antiforgery-token", {
                 credentials: 'include'
