@@ -2,13 +2,33 @@ import { IBookReview } from "../../../interfaces/IBookReview";
 import { getAntiForgeryToken, getStoredToken } from "../../../services/csrfTokenService";
 import { ReviewItem } from "./ReviewItem";
 import { useEffect, useState } from "react";
+import {getObject} from "../../../utils/localStorageUtil.ts";
+import {IUser} from "../../../interfaces/IUser.ts";
 
 export const Reviews = ({ bookId }: { bookId: number }) => {
     const [reviews, setReviews] = useState<IBookReview[]>([]);
     const avgRating = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length || 0;
     const rating = avgRating.toFixed(1);
 
-    const isLogin = false;
+    const [isLogin, setIsLogin] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    useEffect(() => {
+        const userString = getObject("user");
+
+        if (userString) {
+            const user: IUser = userString as IUser;
+            setIsLogin(true);
+            if (user.isAdmin) {
+                setIsAdmin(true);
+            }else{
+                setIsAdmin(false);
+            }
+        }else{
+            setIsLogin(false);
+        }
+    }, []);
+
 
     const numberOfReviews = reviews.length || 0;
 
