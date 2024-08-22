@@ -1,8 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SearchModal } from "./SearchModal";
 import { useState } from "react";
+import {removeItem} from "../../../utils/localStorageUtil.ts";
+
 
 export const Header = () => {
+    const navigate = useNavigate();
+
     const [searchModalOpen, setSearchModalOpen] = useState(true);
 
     const handleCloseSearchModal = (isOpen: boolean) => {
@@ -12,6 +16,12 @@ export const Header = () => {
     const handleOpenSearchModal = () => {
         setSearchModalOpen(true);
         console.log("Open search modal");
+    }
+
+    const handleLogout = () => {
+        removeItem("token");
+        removeItem("user");
+        navigate("/login");
     }
 
     const isLogin = true;
@@ -66,7 +76,7 @@ export const Header = () => {
                                                 <Link to="/loans" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Lịch sử đặt</Link>
                                             </li>
                                             <li>
-                                                <Link to="/logout" className="block px-4 py-2 text-sm text-red-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-red-200 dark:hover:text-white">Đăng xuất</Link>
+                                                <button  onClick={handleLogout} className="w-full block px-4 py-2 text-sm text-red-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-red-200 dark:hover:text-white">Đăng xuất</button  >
                                             </li>
                                         </ul>
                                     </div>
