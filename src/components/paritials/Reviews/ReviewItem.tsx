@@ -1,7 +1,30 @@
 import { IBookReview } from "../../../interfaces/IBookReview";
 import { dateFormat } from "../../../utils/dateFormat";
+import {useEffect, useState} from "react";
+import {getObject} from "../../../utils/localStorageUtil.ts";
+import {IUser} from "../../../interfaces/IUser.ts";
 
 export const ReviewItem = ({ data }: { data: IBookReview }) => {
+    const [isLogin, setIsLogin] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    useEffect(() => {
+        const userString = getObject("user");
+
+        if (userString) {
+            const user: IUser = userString as IUser;
+            setIsLogin(true);
+            if (user.isAdmin) {
+                setIsAdmin(true);
+            }else{
+                setIsAdmin(false);
+            }
+        }else{
+            setIsLogin(false);
+        }
+    }, []);
+
+
     const getRatingClass = (rating: number) => {
         if (rating >= 4) return "bg-green-500";
         if (rating >= 2) return "bg-yellow-500";
