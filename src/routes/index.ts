@@ -8,6 +8,7 @@ import { LoanCart } from '../components/pages/Cart/LoanCart.tsx';
 import { Admin } from "../components/layouts/Admin.tsx";
 import { BookManagement } from "../components/pages/adminPages/BookManagement/BookManagement.tsx";
 import Books from '../components/pages/Books/Books.tsx';
+import { Register } from '../components/pages/Form/Register.tsx';
 
 export const routes: IRoute[] = [
     {
@@ -29,6 +30,11 @@ export const routes: IRoute[] = [
     {
         path: '/login',
         Component: Login,
+        Layout: Master
+    },
+    {
+        path: '/register',
+        Component: Register,
         Layout: Master
     },
     {
