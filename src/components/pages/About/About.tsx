@@ -2,20 +2,7 @@ import React from 'react';
 
 export const About = () => {
     return (
-        <div className="absolute w-full left-0">
-            <nav className="flex flex-wrap items-center justify-between p-3 bg-[#e8e8e5]">
-
-                <div className="flex md:hidden">
-                    <button id="hamburger">
-                        <img className="toggle block" src="https://img.icons8.com/fluent-systems-regular/2x/menu-squared-2.png" width="40" height="40" alt="menu icon"/>
-                        <img className="toggle hidden" src="https://img.icons8.com/fluent-systems-regular/2x/close-window.png" width="40" height="40" alt="close icon"/>
-                    </button>
-                </div>
-
-                <div className="toggle w-full text-end hidden md:flex md:w-auto px-2 py-2 md:rounded">
-                </div>
-            </nav>
-
+        <div>
             <div className="relative w-full h-[320px]" id="home">
                 <div className="absolute inset-0 opacity-70">
                     <img src="https://cafefcdn.com/203337114487263232/2023/7/20/298906574101590302134476847005733038478640968n-16898915637541351616271-1689866422690-16898664227691326815476.jpg" alt="Hình nền" className="object-cover object-center w-full h-full" />
