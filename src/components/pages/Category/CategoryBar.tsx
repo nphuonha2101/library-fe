@@ -6,7 +6,7 @@ import { FaBookOpen } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { ICategory } from "../../../interfaces/ICategory.ts";
 
-export const CategoryBar = ({containerTitle}: {
+export const CategoryBar = ({ containerTitle }: {
     containerTitle: string;
 }) => {
     const [categories, setCategories] = useState<ICategory[]>([]);
@@ -40,7 +40,7 @@ export const CategoryBar = ({containerTitle}: {
                     <DiYii className="text-blue-600" />
                     <span className="text-sky-950">{containerTitle} </span>
                     <DiYii className="text-blue-600" />
-                </h2>n
+                </h2>
             </div>
             <div className="flex text-center w-full">
                 <div className="overflow-hidden flex-grow">
@@ -51,6 +51,7 @@ export const CategoryBar = ({containerTitle}: {
                             ) : (
                                 categories.map((category, index) => (
                                     <CategoryBarButton
+                                        id={category.id}
                                         key={index}
                                         name={category.name}
                                         icon={<FaBookOpen />}
