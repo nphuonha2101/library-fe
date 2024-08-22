@@ -7,6 +7,7 @@ import { Login } from "../components/pages/Form/Login.tsx";
 import { Cart } from '../components/pages/Cart/Cart.tsx';
 import {Admin} from "../components/layouts/Admin.tsx";
 import {BookManagement} from "../components/pages/adminPages/BookManagement/BookManagement.tsx";
+import {Register} from "../components/pages/Form/Register.tsx";
 
 export const routes: IRoute[] = [
     {
