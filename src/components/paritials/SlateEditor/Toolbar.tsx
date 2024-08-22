@@ -18,33 +18,41 @@ export const Toolbar = () => {
         }
     };
 
+
     return (
-        <div>
+        <div className="flex space-x-2 p-2 bg-gray-100 border-b border-gray-300">
             <button
+                className="px-2 py-1 bg-white border border-gray-300 rounded-lg hover:bg-gray-200"
                 onMouseDown={event => {
                     event.preventDefault();
+                    event.stopPropagation();
                     toggleMark(editor, 'bold');
                 }}
             >
                 B
             </button>
             <button
+                className="px-2 py-1 bg-white border border-gray-300 rounded-lg hover:bg-gray-200"
                 onMouseDown={event => {
                     event.preventDefault();
+                    event.stopPropagation();
                     toggleMark(editor, 'italic');
                 }}
             >
                 I
             </button>
             <button
+                className="px-2 py-1 bg-white border border-gray-300 rounded-lg hover:bg-gray-200"
                 onMouseDown={event => {
                     event.preventDefault();
+                    event.stopPropagation();
                     toggleMark(editor, 'underline');
                 }}
             >
                 U
             </button>
             <select
+                className="px-2 py-1 bg-white border border-gray-300 rounded-lg hover:bg-gray-200"
                 onChange={event => {
                     Transforms.setNodes(
                         editor,
@@ -62,4 +70,3 @@ export const Toolbar = () => {
         </div>
     );
 };
-

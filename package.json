@@ -13,6 +13,7 @@
     "@reduxjs/toolkit": "^2.2.7",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/typography": "^0.5.14",
+    "@tinymce/tinymce-react": "^5.1.1",
     "date-fns": "^3.6.0",
     "flowbite": "^2.5.1",
     "flowbite-react": "^0.10.1",

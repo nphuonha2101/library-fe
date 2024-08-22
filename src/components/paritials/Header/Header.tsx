@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { SearchModal } from "./SearchModal";
 import { useState } from "react";
 import {removeItem} from "../../../utils/localStorageUtil.ts";
