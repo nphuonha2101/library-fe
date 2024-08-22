@@ -2,24 +2,30 @@ import { useTitle } from "../../../hooks/useTitle"
 import { DiYii } from "react-icons/di"
 import { dateFormat } from "../../../utils/dateFormat"
 import { addDays } from "date-fns"
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 import { ILoan } from "../../../interfaces/ILoan"
 import { RootState } from "../../../redux/store"
 import { useSelector, useDispatch } from "react-redux"
 import { getAntiForgeryToken, getStoredToken } from "../../../services/csrfTokenService"
 import { toast } from "react-toastify"
-import { removeLoanDetail, updateLoanDetailQuantity } from "../../../redux/loanSlice"
-import { getString } from "../../../utils/localStorageUtil"
+import { removeLoanDetail, setLoanUser, updateLoanDetailQuantity } from "../../../redux/loanSlice"
+import { getObject, getString } from "../../../utils/localStorageUtil"
+import { IUser } from "../../../interfaces/IUser"
 
 
 const MIN_QUANTITY = 1;
-const MAX_QUANTITY = 3;
+const MAX_QUANTITY = 8;
 
 export const LoanCart = () => {
-    const loan = useSelector((state: RootState) => state.loan.loan as ILoan);
+    const loan = useSelector((state: RootState) => state.loan?.loan as ILoan);
     const dispatch = useDispatch();
     const quantityInputRef = useRef<HTMLInputElement>(null);
     const bearerToken = getString("token");
+
+    useEffect(() => {
+        const user = getObject("user") as IUser;
+        dispatch(setLoanUser(user));
+    }, []);
 
     console.log('Loan:', loan);
 
@@ -203,7 +209,7 @@ export const LoanCart = () => {
                                                 <td className="py-3 px-6 text-left ">{index + 1}</td>
                                                 <td className="py-3 px-6 text-left ">{loanDetail.book.title}</td>
                                                 <td className="py-3 px-6 text-left ">{loanDetail.book.authors.map((author) => author.fullName).join(', ')}</td>
-                                                <td className="py-3 px-6 text-left ">{loan.loanDate ? dateFormat(loan.loanDate) : "Không có thông tin"}</td>
+                                                <td className="py-3 px-6 text-left ">{dateFormat(new Date().toISOString())}</td>
                                                 <td className="py-3 px-6 text-left ">{dateFormat(addDays(new Date(), getLoanTime()).toISOString())}</td>
                                                 <td className="py-3 px-6 text-left whitespace-nowrap ">
                                                     <label htmlFor="quantity-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Chọn số lượng:</label>
@@ -253,7 +259,7 @@ export const LoanCart = () => {
                             <h3 className="text-lg font-semibold mb-4">Thông tin mượn</h3>
                             <div className="flex items-center mb-2">
                                 <span className="font-bold text-blue-400 mr-2">Ngày mượn:</span>
-                                <span>{loan.loanDate ? dateFormat(loan.loanDate) : "Không có dữ liệu"}</span>
+                                <span>{dateFormat(new Date().toISOString())}</span>
                             </div>
                             <div className="flex items-center mb-2">
                                 <span className="font-bold text-blue-400 mr-2">Họ và tên:</span>

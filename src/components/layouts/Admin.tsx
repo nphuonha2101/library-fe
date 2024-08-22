@@ -1,10 +1,26 @@
 import { BsCartFill } from "react-icons/bs";
 import { BiSolidBookAlt, BiSolidUser } from "react-icons/bi";
 import { LuLogOut } from "react-icons/lu";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { ILayout } from "../../interfaces/ILayout.ts";
+import { getObject, removeItem } from "../../utils/localStorageUtil.ts";
+import { useDispatch } from "react-redux";
+import { resetLoan } from "../../redux/loanSlice.ts";
+import { IUser } from "../../interfaces/IUser.ts";
 
 export const Admin: React.FC<ILayout> = ({ children }) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const user = getObject("user") as IUser;
+
+    const handleLogout = () => {
+        removeItem("token");
+        removeItem("user");
+        dispatch(resetLoan());
+        navigate("/login");
+
+    }
+
     return (
         <>
             <aside id="logo-sidebar"
@@ -46,16 +62,23 @@ export const Admin: React.FC<ILayout> = ({ children }) => {
                                         'flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group'
                                 }>
                                 <BsCartFill className="text-2xl" />
-                                <span className="flex-1 ms-3 whitespace-nowrap">Quản lý muượn sách</span>
+                                <span className="flex-1 ms-3 whitespace-nowrap">Quản lý mượn sách</span>
                             </NavLink>
                         </li>
                         <li>
-                            <Link to={'/logout'}
-                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                <LuLogOut className="text-2xl" />
-                                <span className="flex-1 ms-3 whitespace-nowrap">Đăng xuất</span>
-                            </Link>
+                            <div className="bg-white border rounded p-3 shadow-md" >
+                                <p className="font-semibold">{user.fullName}</p>
+                                <p className="text-sm text-gray-500">{user.email}</p>
+                                <button
+                                    onClick={handleLogout}
+                                    className="mt-4 w-full flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                    <LuLogOut className="text-2xl" />
+                                    <span className="flex-1 ms-3 whitespace-nowrap">Đăng xuất</span>
+                                </button>
+                            </div>
+
                         </li>
+
                     </ul>
                 </div>
             </aside>

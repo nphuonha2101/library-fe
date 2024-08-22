@@ -7,6 +7,7 @@ import { Provider } from "react-redux"
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
 import { PersistGate } from "redux-persist/integration/react"
+import PrivateRoute from "./middlewares/PrivateRoute.tsx"
 
 function App() {
 
@@ -21,10 +22,12 @@ function App() {
                   key={index}
                   path={route.path}
                   element={(
-                    <route.Layout>
-                      <ToastContainer />
-                      <route.Component />
-                    </route.Layout>
+                    <PrivateRoute routeType={route.routeType}>
+                      <route.Layout>
+                        <ToastContainer />
+                        <route.Component />
+                      </route.Layout>
+                    </PrivateRoute>
                   )
                   }
                 />

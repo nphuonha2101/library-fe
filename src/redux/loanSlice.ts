@@ -11,18 +11,7 @@ export interface LoanState {
 }
 
 const initialState: LoanState = {
-    loan: {
-        user: {
-            id: 0,
-            username: "",
-            email: "",
-            fullName: "",
-            address: "",
-            dob: "",
-            isAdmin: false,
-        },
-        loanDetails: [],
-    }
+    loan: {} as ILoan,
 };
 
 const loanSlice = createSlice({
@@ -70,11 +59,16 @@ const loanSlice = createSlice({
             }
         },
         resetLoan: (state) => {
-            state.loan = { ...initialState.loan, user: {} as WritableDraft<IUser> };
+            state.loan = initialState.loan;
+        },
+        setLoanUser: (state, action: PayloadAction<WritableDraft<IUser>>) => {
+            if (state.loan) {
+                state.loan.user = action.payload;
+            }
         }
     },
 });
 
-export const { setLoan, updateLoan, addLoanDetail, updateLoanDetail, removeLoanDetail, updateLoanDetailQuantity, resetLoan } = loanSlice.actions;
+export const { setLoanUser, setLoan, updateLoan, addLoanDetail, updateLoanDetail, removeLoanDetail, updateLoanDetailQuantity, resetLoan } = loanSlice.actions;
 
 export default loanSlice.reducer;

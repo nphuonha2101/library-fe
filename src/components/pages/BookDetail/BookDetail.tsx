@@ -63,7 +63,7 @@ export const BookDetail = () => {
         }
 
         dispatch(addLoanDetail(loanDetail));
-        navigate("/loan");
+        navigate("/cart");
     }
 
     const addToLoanList = () => {

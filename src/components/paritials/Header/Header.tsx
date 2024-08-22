@@ -18,27 +18,22 @@ export const Header = () => {
     const loan = useSelector((state: RootState) => state.loan?.loan as ILoan);
     const dispatch = useDispatch();
 
-
     useEffect(() => {
         const userString = getObject("user");
 
         if (userString) {
             const user: IUser = userString as IUser;
+            setIsLogin(true);
+            setIsAdmin(user.isAdmin);
             setUserFullName(user.fullName);
             setUserEmail(user.email);
-
-            if (user.isAdmin) {
-                setIsAdmin(true);
-            } else {
-                setIsAdmin(false);
-            }
         } else {
             setIsLogin(false);
+            setIsAdmin(false);
+            setUserFullName("");
+            setUserEmail("");
         }
-
-        setIsLogin(true);
     }, []);
-
 
     const navigate = useNavigate();
 
