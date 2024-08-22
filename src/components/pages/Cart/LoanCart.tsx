@@ -2,20 +2,26 @@ import { useTitle } from "../../../hooks/useTitle"
 import { DiYii } from "react-icons/di"
 import { dateFormat } from "../../../utils/dateFormat"
 import { addDays } from "date-fns"
-import { ChangeEvent, useRef } from "react"
+import { useRef } from "react"
 import { ILoan } from "../../../interfaces/ILoan"
 import { RootState } from "../../../redux/store"
 import { useSelector, useDispatch } from "react-redux"
 import { getAntiForgeryToken, getStoredToken } from "../../../services/csrfTokenService"
 import { toast } from "react-toastify"
 import { removeLoanDetail, updateLoanDetailQuantity } from "../../../redux/loanSlice"
+import { getString } from "../../../utils/localStorageUtil"
 
 
+const MIN_QUANTITY = 1;
+const MAX_QUANTITY = 3;
 
 export const LoanCart = () => {
     const loan = useSelector((state: RootState) => state.loan.loan as ILoan);
     const dispatch = useDispatch();
     const quantityInputRef = useRef<HTMLInputElement>(null);
+    const bearerToken = getString("token");
+
+    console.log('Loan:', loan);
 
     const getLoanTime = () => {
         if (loan.loanDetails?.length && loan.loanDetails?.length >= 0 && loan.loanDetails?.length <= 3) {
@@ -40,7 +46,9 @@ export const LoanCart = () => {
             method: 'POST',
             body: loanForm,
             headers: {
-                "X-CSRF-TOKEN": token
+                "X-CSRF-TOKEN": token,
+                "Authorization": `Bearer ${bearerToken}`
+
             },
             credentials: "include"
         }).then((response) => {
@@ -56,10 +64,18 @@ export const LoanCart = () => {
             const loanSaved: ILoan = await saveLoan();
 
             loan.loanDetails?.forEach(async (loanDetail) => {
+                if (loanSaved.id === undefined) {
+                    throw new Error('Loan id is not defined');
+                }
                 const loanDetailForm = new FormData();
                 loanDetailForm.append('bookId', loanDetail.book.id.toString());
                 loanDetailForm.append('quantity', loanDetail.quantity.toString());
                 loanDetailForm.append('loanId', loanSaved.id.toString());
+                loanDetailForm.append('dueDate', addDays(new Date(), getLoanTime()).toISOString());
+
+                console.log('Book id:', loanDetail.book.id);
+                console.log('Quantity:', loanDetail.quantity);
+                console.log('Loan id:', loanSaved.id);
 
                 const token = await (getStoredToken() || getAntiForgeryToken());
 
@@ -67,17 +83,24 @@ export const LoanCart = () => {
                     method: 'POST',
                     body: loanDetailForm,
                     headers: {
-                        "X-CSRF-TOKEN": token
+                        "X-CSRF-TOKEN": token,
+                        "Authorization": `Bearer ${bearerToken}`
                     },
                     credentials: "include"
                 }).then((response) => {
-                    if (!response.ok || response.status != 201) {
+                    if (!response.ok) {
+                        toast.error('Đã có lỗi xảy ra khi mượn sách');
                         throw new Error('Network response was not ok');
                     }
+                    if (response.ok) {
+                        dispatch(removeLoanDetail(loanDetail.book.id));
+                        toast.success('Mượn sách thành công');
+                    }
+
                 });
             });
 
-            toast.success('Mượn sách thành công');
+
         }
         catch (error) {
             toast.error('Đã có lỗi xảy ra khi mượn sách');
@@ -112,18 +135,33 @@ export const LoanCart = () => {
         }
     }
 
+    const handleDecreaseQuantity = async (bookId: number) => {
+        const currentQuantity = parseInt(quantityInputRef.current!.value);
+        if (currentQuantity > MIN_QUANTITY) {
+            const { status, quantity } = await checkQuantity(bookId, currentQuantity);
 
-    const handleQuantityChange = async (e: ChangeEvent<HTMLInputElement>, bookId: number) => {
-        await checkQuantity(bookId, Number.parseInt(e.target.value)).then((result) => {
-            if (!result.status) {
-                quantityInputRef.current?.setCustomValidity(`Số lượng sách không đủ. Số lượng sách hiện có: ${result.quantity}`);
+            if (status) {
+                dispatch(updateLoanDetailQuantity({ bookId, quantity: currentQuantity - 1 }));
             } else {
-                quantityInputRef.current?.setCustomValidity('');
-                dispatch(updateLoanDetailQuantity({ bookId: bookId, quantity: Number.parseInt(e.target.value) }));
+                toast.error(`Số lượng sách không đủ, chỉ còn ${quantity} quyển`);
             }
+        } else {
+            toast.error(`Số lượng sách không được nhỏ hơn ${MIN_QUANTITY}`);
+        }
+    }
+    const handleIncreaseQuantity = async (bookId: number) => {
+        const currentQuantity = parseInt(quantityInputRef.current!.value);
+        if (currentQuantity < MAX_QUANTITY) {
+            const { status, quantity } = await checkQuantity(bookId, currentQuantity);
 
-            quantityInputRef.current?.reportValidity();
-        });
+            if (status) {
+                dispatch(updateLoanDetailQuantity({ bookId, quantity: currentQuantity + 1 }));
+            } else {
+                toast.error(`Số lượng sách không đủ, chỉ còn ${quantity} quyển`);
+            }
+        } else {
+            toast.error(`Số lượng sách không được lớn hơn ${MAX_QUANTITY}`);
+        }
     }
 
 
@@ -138,7 +176,7 @@ export const LoanCart = () => {
                     <DiYii className="text-blue-600" />
                 </h2>
             </div>
-            {loan.loanDetails?.length === 0 || loan.loanDetails === undefined || loan.loanDetails === null ? (
+            {loan != null && (loan.loanDetails?.length === 0 || loan.loanDetails === undefined || loan.loanDetails === null) ? (
                 <div className="text-center mt-10">
                     <h3 className="text-lg font-semibold">Không có sách nào trong giỏ mượn</h3>
                 </div>) : (
@@ -165,7 +203,7 @@ export const LoanCart = () => {
                                                 <td className="py-3 px-6 text-left ">{index + 1}</td>
                                                 <td className="py-3 px-6 text-left ">{loanDetail.book.title}</td>
                                                 <td className="py-3 px-6 text-left ">{loanDetail.book.authors.map((author) => author.fullName).join(', ')}</td>
-                                                <td className="py-3 px-6 text-left ">{dateFormat(loan.loanDate)}</td>
+                                                <td className="py-3 px-6 text-left ">{loan.loanDate ? dateFormat(loan.loanDate) : "Không có thông tin"}</td>
                                                 <td className="py-3 px-6 text-left ">{dateFormat(addDays(new Date(), getLoanTime()).toISOString())}</td>
                                                 <td className="py-3 px-6 text-left whitespace-nowrap ">
                                                     <label htmlFor="quantity-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Chọn số lượng:</label>
@@ -173,13 +211,20 @@ export const LoanCart = () => {
                                                         <button
                                                             type="button"
                                                             id="decrement-button"
+                                                            onClick={() => handleDecreaseQuantity(loanDetail.book.id)}
                                                             data-input-counter-decrement="quantity-input" className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
                                                             <svg className="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
                                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16" />
                                                             </svg>
                                                         </button>
-                                                        <input ref={quantityInputRef} onChange={async () => await handleQuantityChange} type="text" id="quantity-input" data-input-counter data-input-counter-min="1" data-input-counter-max="10" aria-describedby="helper-text-explanation" className="bg-gray-50 border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="999" value="5" required />
-                                                        <button type="button" id="increment-button" data-input-counter-increment="quantity-input" className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+                                                        <input ref={quantityInputRef} type="text" id="quantity-input" data-input-counter data-input-counter-min="1" data-input-counter-max="10" aria-describedby="helper-text-explanation" className="bg-gray-50 border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="999" value={loanDetail.quantity} required />
+                                                        <button
+                                                            onClick={() => handleIncreaseQuantity(loanDetail.book.id)}
+                                                            type="button" id="increment-button"
+                                                            data-input-counter-increment="quantity-input"
+                                                            className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
+                                                        >
+
                                                             <svg className="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
                                                             </svg>
@@ -208,7 +253,7 @@ export const LoanCart = () => {
                             <h3 className="text-lg font-semibold mb-4">Thông tin mượn</h3>
                             <div className="flex items-center mb-2">
                                 <span className="font-bold text-blue-400 mr-2">Ngày mượn:</span>
-                                <span>{dateFormat(loan.loanDate)}</span>
+                                <span>{loan.loanDate ? dateFormat(loan.loanDate) : "Không có dữ liệu"}</span>
                             </div>
                             <div className="flex items-center mb-2">
                                 <span className="font-bold text-blue-400 mr-2">Họ và tên:</span>

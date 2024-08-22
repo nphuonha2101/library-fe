@@ -1,15 +1,22 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { SearchModal } from "./SearchModal";
-import {useEffect, useState} from "react";
-import {removeItem, getObject} from "../../../utils/localStorageUtil.ts";
-import {IUser} from "../../../interfaces/IUser.ts";
-
+import { useEffect, useState } from "react";
+import { removeItem, getObject } from "../../../utils/localStorageUtil.ts";
+import { IUser } from "../../../interfaces/IUser.ts";
+import { CiShoppingCart } from "react-icons/ci";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../redux/store.ts";
+import { ILoan } from "../../../interfaces/ILoan.ts";
+import { resetLoan } from "../../../redux/loanSlice.ts";
 
 
 export const Header = () => {
     const [isLogin, setIsLogin] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
-
+    const [userFullName, setUserFullName] = useState("");
+    const [userEmail, setUserEmail] = useState("");
+    const loan = useSelector((state: RootState) => state.loan?.loan as ILoan);
+    const dispatch = useDispatch();
 
 
     useEffect(() => {
@@ -17,15 +24,19 @@ export const Header = () => {
 
         if (userString) {
             const user: IUser = userString as IUser;
-            setIsLogin(true);
+            setUserFullName(user.fullName);
+            setUserEmail(user.email);
+
             if (user.isAdmin) {
                 setIsAdmin(true);
-            }else{
+            } else {
                 setIsAdmin(false);
             }
-        }else{
+        } else {
             setIsLogin(false);
         }
+
+        setIsLogin(true);
     }, []);
 
 
@@ -47,7 +58,10 @@ export const Header = () => {
     const handleLogout = () => {
         removeItem("token");
         removeItem("user");
+        dispatch(resetLoan());
         navigate("/login");
+        setIsLogin(false);
+        setIsAdmin(false);
     }
 
     return (
@@ -59,7 +73,16 @@ export const Header = () => {
                             <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" />
                             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">eLib</span>
                         </a>
+
                         <div className="flex md:order-2">
+                            {isLogin && <Link to="/cart" className="me-6 flex items-center space-x-2 text-sm text-gray-900 dark:text-white">
+                                <div className="relative">
+                                    <CiShoppingCart className="text-2xl text-gray-900 dark:text-white" />
+                                    <span className="absolute -top-2 -end-2 bg-red-500 text-white text-xs font-semibold rounded-full px-1">{loan && loan.loanDetails ? loan.loanDetails.length : 0}</span>
+
+                                </div>
+                            </Link>}
+
                             <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search" aria-expanded="false" className="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1">
                                 <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
@@ -86,8 +109,8 @@ export const Header = () => {
                                     {/* // User menu dropdown */}
                                     <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
                                         <div className="px-4 py-3">
-                                            <span className="block text-sm text-gray-900 dark:text-white">eLib Admin</span>
-                                            <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">admin@elib.com</span>
+                                            <span className="block text-sm text-gray-900 dark:text-white">{userFullName}</span>
+                                            <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">{userEmail}</span>
                                         </div>
                                         <ul className="py-2" aria-labelledby="user-menu-button">
                                             {isAdmin && (

@@ -44,12 +44,7 @@ export const BooksContainer = ({ data, containerTitle }: {
                 {data.map((book, index) => (
                     <BookItem
                         key={index}
-                        id={book.id}
-                        bookImage={book.bookImage}
-                        title={book.title}
-                        authors={book.authors}
-                        description={book.description}
-                        categories={book.categories}
+                        book={book}
                     />
                 ))}
             </div>

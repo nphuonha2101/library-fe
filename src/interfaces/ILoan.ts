@@ -4,11 +4,11 @@ import { IUser } from "./IUser";
 import { IApiResult } from "./IApiResult.ts";
 
 export interface ILoan extends IApiResult {
-    id: number;
+    id?: number;
     user: IUser;
-    loanDate: string;
-    dueDate: string;
-    returnDate: string;
+    loanDate?: string;
+    dueDate?: string;
+    returnDate?: string;
     loanFine?: ILoanFine;
     loanDetails?: ILoanDetail[];
 }

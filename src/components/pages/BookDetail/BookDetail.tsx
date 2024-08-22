@@ -1,10 +1,12 @@
 import { IBookItem } from "../../../interfaces/IBookItem.ts";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Reviews } from "../../paritials/Reviews/Reviews.tsx";
-import {getObject} from "../../../utils/localStorageUtil.ts";
-import {IUser} from "../../../interfaces/IUser.ts";
+import { getObject } from "../../../utils/localStorageUtil.ts";
 import { useTitle } from "../../../hooks/useTitle.ts";
+import { useDispatch } from "react-redux";
+import { addLoanDetail } from "../../../redux/loanSlice.ts";
+import { ILoanDetail } from "../../../interfaces/ILoanDetail.ts";
 
 
 export const BookDetail = () => {
@@ -12,21 +14,16 @@ export const BookDetail = () => {
     const [book, setBook] = useState<IBookItem | null>(null);
     const [quantity, setQuantity] = useState<number>(1);
     const [isLogin, setIsLogin] = useState<boolean>(false);
-    const [isAdmin, setIsAdmin] = useState<boolean>(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
 
     useEffect(() => {
         const userString = getObject("user");
 
         if (userString) {
-            const user: IUser = userString as IUser;
             setIsLogin(true);
-            if (user.isAdmin) {
-                setIsAdmin(true);
-            }else{
-                setIsAdmin(false);
-            }
-        }else{
+        } else {
             setIsLogin(false);
         }
     }, []);
@@ -59,6 +56,27 @@ export const BookDetail = () => {
         setQuantity(quantity - 1);
     }
 
+    const handleLoanNow = () => {
+        const loanDetail: ILoanDetail = {
+            book: book,
+            quantity: quantity
+        }
+
+        dispatch(addLoanDetail(loanDetail));
+        navigate("/loan");
+    }
+
+    const addToLoanList = () => {
+        const loanDetail: ILoanDetail = {
+            book: book,
+            quantity: quantity
+        }
+
+        dispatch(addLoanDetail(loanDetail));
+    }
+
+
+
 
     return (
         <div className="grid grid-cols-3 gap-4">
@@ -72,10 +90,12 @@ export const BookDetail = () => {
                     {isLogin ? (
                         <>
                             <button
+                                onClick={addToLoanList}
                                 className="mr-5 items-center px-4 py-2 bg-white border border-blue-500 text-blue-500 rounded-lg transition duration-300 ease-in-out">
-                                Thêm vào giỏ hàng
+                                Thêm vào danh sách mượn
                             </button>
                             <button
+                                onClick={handleLoanNow}
                                 className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out">
                                 Mượn ngay
                             </button>
