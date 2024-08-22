@@ -1,10 +1,33 @@
 import { Link, useNavigate } from "react-router-dom";
 import { SearchModal } from "./SearchModal";
-import { useState } from "react";
-import {removeItem} from "../../../utils/localStorageUtil.ts";
+import {useEffect, useState} from "react";
+import {removeItem, getObject} from "../../../utils/localStorageUtil.ts";
+import {IUser} from "../../../interfaces/IUser.ts";
 
 
 export const Header = () => {
+    const [isLogin, setIsLogin] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+
+
+
+    useEffect(() => {
+        const userString = getObject("user");
+
+        if (userString) {
+            const user: IUser = userString as IUser;
+            setIsLogin(true);
+            if (user.isAdmin) {
+                setIsAdmin(true);
+            }else{
+                setIsAdmin(false);
+            }
+        }else{
+            setIsLogin(false);
+        }
+    }, []);
+
+
     const navigate = useNavigate();
 
     const [searchModalOpen, setSearchModalOpen] = useState(true);
@@ -24,8 +47,6 @@ export const Header = () => {
         navigate("/login");
     }
 
-    const isLogin = true;
-    const isAdmin = false;
     return (
         <>
             <header className="absolute w-full top-0 left-0">

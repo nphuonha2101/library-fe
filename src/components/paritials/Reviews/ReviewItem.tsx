@@ -1,7 +1,30 @@
 import { IBookReview } from "../../../interfaces/IBookReview";
 import { dateFormat } from "../../../utils/dateFormat";
+import {useEffect, useState} from "react";
+import {getObject} from "../../../utils/localStorageUtil.ts";
+import {IUser} from "../../../interfaces/IUser.ts";
 
 export const ReviewItem = ({ data }: { data: IBookReview }) => {
+    const [isLogin, setIsLogin] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    useEffect(() => {
+        const userString = getObject("user");
+
+        if (userString) {
+            const user: IUser = userString as IUser;
+            setIsLogin(true);
+            if (user.isAdmin) {
+                setIsAdmin(true);
+            }else{
+                setIsAdmin(false);
+            }
+        }else{
+            setIsLogin(false);
+        }
+    }, []);
+
+
     return (
         <>
             <article className="md:gap-8 md:grid md:grid-cols-3 w-full my-3 border border-1 p-3 rounded duration-500 transition-shadow hover:shadow-md">

@@ -2,14 +2,32 @@ import { IBookItem } from "../../../interfaces/IBookItem.ts";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Reviews } from "../../paritials/Reviews/Reviews.tsx";
+import {getObject} from "../../../utils/localStorageUtil.ts";
+import {IUser} from "../../../interfaces/IUser.ts";
 
 
 export const BookDetail = () => {
     const { id } = useParams<{ id: string }>();
     const [book, setBook] = useState<IBookItem | null>(null);
     const [quantity, setQuantity] = useState<number>(1);
+    const [isLogin, setIsLogin] = useState<boolean>(false);
+    const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
-    const isLogin = true;
+    useEffect(() => {
+        const userString = getObject("user");
+
+        if (userString) {
+            const user: IUser = userString as IUser;
+            setIsLogin(true);
+            if (user.isAdmin) {
+                setIsAdmin(true);
+            }else{
+                setIsAdmin(false);
+            }
+        }else{
+            setIsLogin(false);
+        }
+    }, []);
 
     useEffect(() => {
         // Replace with your actual fetch logic
