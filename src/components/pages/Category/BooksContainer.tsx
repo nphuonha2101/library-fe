@@ -48,6 +48,7 @@ export const BooksContainer = ({ data, containerTitle }: {
                         bookImage={book.bookImage}
                         title={book.title}
                         authors={book.authors}
+                        description={book.description}
                         categories={book.categories}
                     />
                 ))}

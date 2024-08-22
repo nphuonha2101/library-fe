@@ -4,7 +4,7 @@ import { Master } from '../components/layouts/Master';
 import { BookCategory } from "../components/pages/BookCategories/BookCategory.tsx";
 import { BookDetail } from "../components/pages/BookDetail/BookDetail.tsx";
 import { Login } from "../components/pages/Form/Login.tsx";
-import { Cart } from '../components/pages/Cart/Cart.tsx';
+import { LoanCart } from '../components/pages/Cart/LoanCart.tsx';
 import { Admin } from "../components/layouts/Admin.tsx";
 import { BookManagement } from "../components/pages/adminPages/BookManagement/BookManagement.tsx";
 import Books from '../components/pages/Books/Books.tsx';
@@ -33,7 +33,7 @@ export const routes: IRoute[] = [
     },
     {
         path: '/cart',
-        Component: Cart,
+        Component: LoanCart,
         Layout: Master
     },
     {

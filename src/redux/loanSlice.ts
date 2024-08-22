@@ -42,9 +42,17 @@ const loanSlice = createSlice({
                 state.loan.loanDetails = state.loan.loanDetails.filter(detail => detail.book.id !== action.payload);
             }
         },
+        updateLoanDetailQuantity: (state, action: PayloadAction<{ bookId: number, quantity: number }>) => {
+            if (state.loan && state.loan.loanDetails) {
+                const index = state.loan.loanDetails.findIndex(detail => detail.book.id === action.payload.bookId);
+                if (index !== -1) {
+                    state.loan.loanDetails[index].quantity = action.payload.quantity;
+                }
+            }
+        },
     },
 });
 
-export const { setLoan, updateLoan, addLoanDetail, updateLoanDetail, removeLoanDetail } = loanSlice.actions;
+export const { setLoan, updateLoan, addLoanDetail, updateLoanDetail, removeLoanDetail, updateLoanDetailQuantity } = loanSlice.actions;
 
 export default loanSlice.reducer;
