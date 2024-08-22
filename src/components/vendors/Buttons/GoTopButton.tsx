@@ -1,5 +1,5 @@
-import {useEffect, useState} from "react";
-import {FaArrowAltCircleUp} from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { FaArrowAltCircleUp } from "react-icons/fa";
 
 export const GoTopButton: React.FC = () => {
     const [visible, setVisible] = useState(false);
@@ -19,7 +19,7 @@ export const GoTopButton: React.FC = () => {
     }, [visible]);
     return (
         <FaArrowAltCircleUp
-            className="fixed bottom-2 right-2 text-orange-600 z-20 text-3xl hover:text-orange-400"
+            className="fixed bottom-2 right-2 text-blue-400 text-3xl hover:text-blue-700"
             onClick={scrollTop}
             style={{ height: 40, display: visible ? 'flex' : "none" }} />
     )

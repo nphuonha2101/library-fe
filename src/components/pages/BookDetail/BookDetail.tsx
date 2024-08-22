@@ -2,6 +2,7 @@ import { IBookItem } from "../../../interfaces/IBookItem.ts";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Reviews } from "../../paritials/Reviews/Reviews.tsx";
+import { useTitle } from "../../../hooks/useTitle.ts";
 
 
 export const BookDetail = () => {
@@ -9,7 +10,9 @@ export const BookDetail = () => {
     const [book, setBook] = useState<IBookItem | null>(null);
     const [quantity, setQuantity] = useState<number>(1);
 
-    const isLogin = true;
+    useTitle(book?.title || "Chi tiết sách");
+
+    const isLogin = false;
 
     useEffect(() => {
         // Replace with your actual fetch logic
@@ -43,9 +46,8 @@ export const BookDetail = () => {
             <div className="col-span-1 max-w-[460px] h-fit bg-white rounded-lg shadow-md p-4">
                 <div>
                     <img
-                        src={book.bookImage}
-                        alt={book.title} className="w-full rounded-lg"/>
-
+                        src={book.bookImage != '' ? book.bookImage : "https://www.crucial.com.au/blog/wp-content/uploads/2014/04/cloud_computing_in_education.jpg"}
+                        alt={book.title} className="w-full rounded-lg" />
                 </div>
                 <div className="mt-4">
                     {isLogin ? (
