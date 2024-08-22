@@ -2,17 +2,21 @@ import { IBookReview } from "../../../interfaces/IBookReview";
 import { getAntiForgeryToken, getStoredToken } from "../../../services/csrfTokenService";
 import { ReviewItem } from "./ReviewItem";
 import { useEffect, useState } from "react";
-import { getObject } from "../../../utils/localStorageUtil.ts";
+import { getObject, getString } from "../../../utils/localStorageUtil.ts";
+import { IUser } from "../../../interfaces/IUser.ts";
+import { toast } from "react-toastify";
 
 export const Reviews = ({ bookId }: { bookId: number }) => {
     const [reviews, setReviews] = useState<IBookReview[]>([]);
     const avgRating = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length || 0;
     const rating = avgRating.toFixed(1);
+    const [user, setUser] = useState<IUser>();
 
     const [isLogin, setIsLogin] = useState(false);
 
     useEffect(() => {
         const userString = getObject("user");
+        setUser(userString as IUser);
 
         if (userString) {
             setIsLogin(true);
@@ -43,20 +47,27 @@ export const Reviews = ({ bookId }: { bookId: number }) => {
         e.preventDefault();
         const formData = new FormData(form);
         formData.append("bookId", bookId.toString());
-        formData.append("userId", "1");
+        if (user == null) {
+            toast.error("Vui lòng đăng nhập");
+        } else {
+            formData.append("userId", `${user?.id}`);
+        }
 
         const token = getStoredToken() || await getAntiForgeryToken();
+        const bearerToken = getString("token");
 
         fetch(`https://localhost:7259/api/v1/book-reviews`, {
             method: "POST",
             body: formData,
             headers: {
-                "X-CSRF-TOKEN": token
+                "X-CSRF-TOKEN": token,
+                "Authorization": `Bearer ${bearerToken}`
             },
             credentials: "include"
         })
             .then(response => {
                 if (!response.ok) {
+                    toast.error("Có lỗi xảy ra khi gửi đánh giá");
                     throw new Error("Network response was not ok");
                 }
                 return response.json();
@@ -64,6 +75,7 @@ export const Reviews = ({ bookId }: { bookId: number }) => {
             .then(data => {
                 setReviews([...reviews, data]);
                 form.reset();
+                toast.success("Đánh giá của bạn đã được gửi");
             })
             .catch(error => console.error("There was a problem with your fetch operation:", error));
     };

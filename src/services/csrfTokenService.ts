@@ -1,6 +1,6 @@
 export const getAntiForgeryToken = async () => {
     const response = await fetch("https://localhost:7259/auth/antiforgery-token", {
-        credentials: "include"
+        credentials: "include",
     });
     if (!response.ok) {
         throw new Error('Failed to fetch anti-forgery token');

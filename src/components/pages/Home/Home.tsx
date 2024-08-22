@@ -16,11 +16,11 @@ export const Home = () => {
             .catch(err => console.log(err))
     }, [])
 
+
     return (
         <div>
             <CategoryBar containerTitle="Các thể loại sách" />
             <BooksContainer data={books} containerTitle="Nổi bật" />
-
         </div>
     )
 }
