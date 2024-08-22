@@ -1,22 +1,18 @@
 import { IRoute } from '../interfaces/IRoute';
 import { Home } from '../components/pages/Home/Home';
 import { Master } from '../components/layouts/Master';
-import { CategoryList } from "../components/pages/Category/CategoryList.tsx";
+import { BookCategory } from "../components/pages/BookCategories/BookCategory.tsx";
 import { BookDetail } from "../components/pages/BookDetail/BookDetail.tsx";
 import { Login } from "../components/pages/Form/Login.tsx";
 import { Cart } from '../components/pages/Cart/Cart.tsx';
-import {Admin} from "../components/layouts/Admin.tsx";
-import {BookManagement} from "../components/pages/adminPages/BookManagement/BookManagement.tsx";
+import { Admin } from "../components/layouts/Admin.tsx";
+import { BookManagement } from "../components/pages/adminPages/BookManagement/BookManagement.tsx";
+import Books from '../components/pages/Books/Books.tsx';
 
 export const routes: IRoute[] = [
     {
         path: '/',
         Component: Home,
-        Layout: Master
-    },
-    {
-        path: '/category',
-        Component: CategoryList,
         Layout: Master
     },
     {
@@ -26,13 +22,13 @@ export const routes: IRoute[] = [
 
     },
     {
-
-        path: '/login',
-        Component: Login,
+        path: '/books',
+        Component: Books,
         Layout: Master
     },
-    {path: '/register',
-        Component: Register,
+    {
+        path: '/login',
+        Component: Login,
         Layout: Master
     },
     {
@@ -46,13 +42,13 @@ export const routes: IRoute[] = [
         Layout: Admin
     },
     {
-        path: '/admin/book',
+        path: '/admin/books',
         Component: BookManagement,
         Layout: Admin
     },
     {
         path: '/books/category/:categoryId',
-        Component: CategoryList,
+        Component: BookCategory,
         Layout: Master
     }
 ]

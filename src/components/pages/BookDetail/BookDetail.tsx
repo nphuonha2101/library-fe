@@ -2,12 +2,15 @@ import { IBookItem } from "../../../interfaces/IBookItem.ts";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Reviews } from "../../paritials/Reviews/Reviews.tsx";
+import { useTitle } from "../../../hooks/useTitle.ts";
 
 
 export const BookDetail = () => {
     const { id } = useParams<{ id: string }>();
     const [book, setBook] = useState<IBookItem | null>(null);
     const [quantity, setQuantity] = useState<number>(1);
+
+    useTitle(book?.title || "Chi tiết sách");
 
     const isLogin = false;
 
