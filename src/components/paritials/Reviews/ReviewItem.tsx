@@ -12,7 +12,7 @@ export const ReviewItem = ({ data }: { data: IBookReview }) => {
             <article className="md:gap-8 md:grid md:grid-cols-3 w-full my-3 border border-1 p-3 rounded duration-500 transition-shadow hover:shadow-md">
                 <div className="w-full">
                     <div className="flex items-center mb-6">
-                        <img className="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-5.jpg" alt="" />
+                        <img className="w-10 h-10 rounded-full" src="https://flowbite.com/docs/images/logo.svg" alt="" />
                         <div className="ms-4 font-medium dark:text-white">
                             <p>{data.user.fullName}</p>
                             <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
