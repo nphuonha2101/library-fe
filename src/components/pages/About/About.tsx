@@ -2,7 +2,7 @@ import React from 'react';
 
 export const About = () => {
     return (
-        <div>
+        <div className="absolute w-full left-0 bg-gray-100 text-gray-800">
             <div className="relative w-full h-[320px]" id="home">
                 <div className="absolute inset-0 opacity-70">
                     <img src="https://cafefcdn.com/203337114487263232/2023/7/20/298906574101590302134476847005733038478640968n-16898915637541351616271-1689866422690-16898664227691326815476.jpg" alt="Hình nền" className="object-cover object-center w-full h-full" />
