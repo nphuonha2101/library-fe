@@ -8,7 +8,7 @@ export const Reviews = ({ bookId }: { bookId: number }) => {
     const avgRating = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
     const rating = avgRating.toFixed(1);
 
-    const isLogin = true;
+    const isLogin = false;
 
     const numberOfReviews = reviews.length;
 
