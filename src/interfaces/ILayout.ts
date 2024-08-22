@@ -1,1 +1,3 @@
-export interface ILayout extends React.FC<{ children?: React.ReactNode }> { }
+export interface ILayout {
+    children?: React.ReactNode;
+}

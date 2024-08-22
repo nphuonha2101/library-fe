@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { Reviews } from "../../paritials/Reviews/Reviews.tsx";
 import {getObject} from "../../../utils/localStorageUtil.ts";
 import {IUser} from "../../../interfaces/IUser.ts";
+import { useTitle } from "../../../hooks/useTitle.ts";
 
 
 export const BookDetail = () => {
@@ -12,6 +13,7 @@ export const BookDetail = () => {
     const [quantity, setQuantity] = useState<number>(1);
     const [isLogin, setIsLogin] = useState<boolean>(false);
     const [isAdmin, setIsAdmin] = useState<boolean>(false);
+
 
     useEffect(() => {
         const userString = getObject("user");
@@ -28,11 +30,13 @@ export const BookDetail = () => {
             setIsLogin(false);
         }
     }, []);
+    useTitle(book?.title || "Chi tiết sách");
+
 
     useEffect(() => {
         // Replace with your actual fetch logic
         const fetchBook = async () => {
-            const response = await fetch(`https://freetestapi.com/api/v1/books/1`);
+            const response = await fetch(`https://localhost:7259/api/v1/books/${id}`);
             const data: IBookItem = await response.json();
             setBook(data);
         };
@@ -47,6 +51,7 @@ export const BookDetail = () => {
     function incrementQuantity() {
         setQuantity(quantity + 1);
     }
+
     function decrementQuantity() {
         if (quantity === 0) {
             return;
@@ -60,7 +65,7 @@ export const BookDetail = () => {
             <div className="col-span-1 max-w-[460px] h-fit bg-white rounded-lg shadow-md p-4">
                 <div>
                     <img
-                        src={"https://images.unsplash.com/photo-1723441857662-d465a52e78d0?q=80&w=1972&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
+                        src={book.bookImage != '' ? book.bookImage : "https://www.crucial.com.au/blog/wp-content/uploads/2014/04/cloud_computing_in_education.jpg"}
                         alt={book.title} className="w-full rounded-lg" />
                 </div>
                 <div className="mt-4">

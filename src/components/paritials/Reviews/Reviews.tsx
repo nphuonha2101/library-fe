@@ -7,7 +7,7 @@ import {IUser} from "../../../interfaces/IUser.ts";
 
 export const Reviews = ({ bookId }: { bookId: number }) => {
     const [reviews, setReviews] = useState<IBookReview[]>([]);
-    const avgRating = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
+    const avgRating = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length || 0;
     const rating = avgRating.toFixed(1);
 
     const [isLogin, setIsLogin] = useState(false);
@@ -29,7 +29,8 @@ export const Reviews = ({ bookId }: { bookId: number }) => {
         }
     }, []);
 
-    const numberOfReviews = reviews.length;
+
+    const numberOfReviews = reviews.length || 0;
 
     // fetch reviews
     useEffect(() => {
