@@ -2,15 +2,27 @@ import { IBookReview } from "../../../interfaces/IBookReview";
 import { getAntiForgeryToken, getStoredToken } from "../../../services/csrfTokenService";
 import { ReviewItem } from "./ReviewItem";
 import { useEffect, useState } from "react";
+import { getObject } from "../../../utils/localStorageUtil.ts";
 
 export const Reviews = ({ bookId }: { bookId: number }) => {
     const [reviews, setReviews] = useState<IBookReview[]>([]);
-    const avgRating = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
+    const avgRating = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length || 0;
     const rating = avgRating.toFixed(1);
 
-    const isLogin = false;
+    const [isLogin, setIsLogin] = useState(false);
 
-    const numberOfReviews = reviews.length;
+    useEffect(() => {
+        const userString = getObject("user");
+
+        if (userString) {
+            setIsLogin(true);
+        } else {
+            setIsLogin(false);
+        }
+    }, []);
+
+
+    const numberOfReviews = reviews.length || 0;
 
     // fetch reviews
     useEffect(() => {
@@ -87,11 +99,11 @@ export const Reviews = ({ bookId }: { bookId: number }) => {
                                 <label className="block text-sm font-medium text-gray-700 dark:text-white" htmlFor="review-title">Tiêu đề đánh giá:</label>
                                 <input className="w-full p-2 mt-1 text-sm border border-gray-300 rounded-md dark:bg-gray-700 dark:text-white focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" type="text" name="title" id="review-title" placeholder="Nhập tiêu đề đánh giá" />
                                 <select className="w-24 p-2 mt-1 text-sm border border-gray-300 rounded-md dark:bg-gray-700 dark:text-white focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" name="rating" id="rating">
-                                    <option value="1">1 sao</option>
-                                    <option value="2">2 sao</option>
-                                    <option value="3">3 sao</option>
-                                    <option value="4">4 sao</option>
                                     <option value="5">5 sao</option>
+                                    <option value="4">4 sao</option>
+                                    <option value="3">3 sao</option>
+                                    <option value="2">2 sao</option>
+                                    <option value="1">1 sao</option>
                                 </select>
                             </div>
                             <label className="mt-6 block text-sm font-medium text-gray-700 dark:text-white" htmlFor="review">Đánh giá của bạn:</label>

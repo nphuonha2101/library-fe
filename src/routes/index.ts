@@ -4,11 +4,14 @@ import { Master } from '../components/layouts/Master';
 import { BookCategory } from "../components/pages/BookCategories/BookCategory.tsx";
 import { BookDetail } from "../components/pages/BookDetail/BookDetail.tsx";
 import { Login } from "../components/pages/Form/Login.tsx";
-import { Register } from "../components/pages/Form/Register.tsx";
-import { Cart } from '../components/pages/Cart/Cart.tsx';
+import {About} from "../components/pages/About/About.tsx";
+
+import { LoanCart } from '../components/pages/Cart/LoanCart.tsx';
 import { Admin } from "../components/layouts/Admin.tsx";
 import { BookManagement } from "../components/pages/adminPages/BookManagement/BookManagement.tsx";
 import Books from '../components/pages/Books/Books.tsx';
+import { Register } from '../components/pages/Form/Register.tsx';
+import {LoanHistory} from "../components/pages/LoanHistory/LoanHistory.tsx";
 
 export const routes: IRoute[] = [
     {
@@ -33,13 +36,13 @@ export const routes: IRoute[] = [
         Layout: Master
     },
     {
-      path: '/register',
+        path: '/register',
         Component: Register,
         Layout: Master
     },
     {
         path: '/cart',
-        Component: Cart,
+        Component: LoanCart,
         Layout: Master
     },
     {
@@ -52,9 +55,20 @@ export const routes: IRoute[] = [
         Component: BookManagement,
         Layout: Admin
     },
+
     {
         path: '/books/category/:categoryId',
         Component: BookCategory,
+        Layout: Master
+    },
+    {
+        path: '/about',
+        Component: About,
+        Layout: Master
+    },
+    {
+        path: '/loans',
+        Component: LoanHistory,
         Layout: Master
     }
 ]
